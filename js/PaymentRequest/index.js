@@ -408,13 +408,17 @@ export default class PaymentRequest {
   }
 
   _removeEventListeners() {
-    // Internal Events
-    this._userDismissSubscription.remove()
-    this._userAcceptSubscription.remove()
+    try {
+      // Internal Events
+      this._userDismissSubscription.remove()
+      this._userAcceptSubscription.remove()
 
-    if (IS_IOS) {
-      this._shippingAddressChangeSubscription.remove()
-      this._shippingOptionChangeSubscription.remove()
+      if (IS_IOS) {
+        this._shippingAddressChangeSubscription.remove()
+        this._shippingOptionChangeSubscription.remove()
+      }
+    } catch (e) {
+      console.log('_removeEventListeners error', e);
     }
   }
 
