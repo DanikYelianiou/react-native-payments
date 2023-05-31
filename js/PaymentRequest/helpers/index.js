@@ -95,18 +95,20 @@ export function getPlatformMethodData(
   methodData: Array<PaymentMethodData>,
   platformOS: 'ios' | 'android'
 ) {
-  const platformSupportedMethod =
-    platformOS === 'ios' ? 'apple-pay' : 'android-pay';
+  try {
+    const platformSupportedMethod =
+      platformOS === 'ios' ? 'apple-pay' : 'android-pay';
 
-  const platformMethod = methodData.find(paymentMethodData =>
-    paymentMethodData.supportedMethods.includes(platformSupportedMethod)
-  );
+    const platformMethod = methodData.find(paymentMethodData =>
+      paymentMethodData.supportedMethods.includes(platformSupportedMethod)
+    );
 
-  if (!platformMethod) {
-    throw new DOMException('The payment method is not supported');
-  }
+    if (!platformMethod) {
+      throw new DOMException('The payment method is not supported');
+    }
 
-  return platformMethod.data;
+    return platformMethod.data;
+  } catch (e) {}
 }
 
 // Validators
